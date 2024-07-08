@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "rhh"
+version = "0.1.0"
+description = "PoC python hexagonal ddd"
+authors = ["Alfredo Fdez Manzano"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+start = "rhh.main:start"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
