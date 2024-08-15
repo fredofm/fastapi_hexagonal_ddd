@@ -3,7 +3,7 @@ from uuid import uuid4
 from rhh.domain.shared import Entity
 
 class Animatronic(Entity):
-    def __init__(self, id: uuid4, name: str):
+    def __init__(self, id: uuid4, name: str, description: str):
         self.__id = id
         self.__name = name
         self.__description = "No description added"

@@ -1,9 +1,10 @@
+from fastapi.exceptions import ResponseValidationError
 import uvicorn
 from fastapi import FastAPI
 
 import logging
 
-from rhh.infrastructure.api.handlers.exception_handlers import common_exception_handler
+from rhh.infrastructure.api.handlers.exception_handlers import common_exception_handler, response_validation_error
 from rhh.infrastructure.api.main import api_router
 from rhh.shared.exceptions import RavenHillHouseError
 
@@ -23,7 +24,7 @@ class Main:
 
     def setup_exception_handlers(self) -> None:
         self.__app.add_exception_handler(RavenHillHouseError, common_exception_handler)
-
+        self.__app.add_exception_handler(ResponseValidationError, response_validation_error)
 
     def setup_controllers(self) -> None:
         self.__app.include_router(api_router, prefix="/api/v1")

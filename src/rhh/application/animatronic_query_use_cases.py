@@ -12,10 +12,10 @@ class AnimatronicQueryUseCase(ABC):
 
 class AnimatronicQueryUseCaseImpl(AnimatronicQueryUseCase):
     
-    def get_all_animatronics(self) -> List[Animatronic]:
+    def get_all_animatronics(self) -> Animatronic:
         animatronic_list = [
-            Animatronic(uuid.uuid4(), "Animatronic 1"),
-            Animatronic(uuid.uuid4(), "Animatronic 2")
+            Animatronic(uuid.uuid4(), "Animatronic 1", "Description"),
+            Animatronic(uuid.uuid4(), "Animatronic 2", "Description")
         ]
         
         return animatronic_list
