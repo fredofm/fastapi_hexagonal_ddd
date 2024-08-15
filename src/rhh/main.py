@@ -3,7 +3,9 @@ from fastapi import FastAPI
 
 import logging
 
+from rhh.infrastructure.api.handlers.exception_handlers import common_exception_handler
 from rhh.infrastructure.api.main import api_router
+from rhh.shared.exceptions import RavenHillHouseError
 
 class Main:
 
@@ -19,10 +21,14 @@ class Main:
 #    def ensureConnection(self) -> None:
 #        self.__dbService.checkConnection()
 
-    def setupControllers(self) -> None:
+    def setup_exception_handlers(self) -> None:
+        self.__app.add_exception_handler(RavenHillHouseError, common_exception_handler)
+
+
+    def setup_controllers(self) -> None:
         self.__app.include_router(api_router, prefix="/api/v1")
 
-    def setupConfig(self) -> None:
+    def setup_config(self) -> None:
         logging.basicConfig(level=logging.INFO)
 #        CorsConfig.setup(self.__app)
 
@@ -32,8 +38,9 @@ class Main:
     @staticmethod
     def initialize() -> FastAPI:
         main = Main()
-        main.setupConfig()
-        main.setupControllers()
+        main.setup_config()
+        main.setup_controllers()
+        main.setup_exception_handlers()
  #       main.ensureConnection()
         return main.getApp()
 

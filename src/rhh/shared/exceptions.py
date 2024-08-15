@@ -1,0 +1,2 @@
+class RavenHillHouseError(Exception):
+    pass

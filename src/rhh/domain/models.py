@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from rhh.domain.shared_model import Entity
+from rhh.domain.shared import Entity
 
 class Animatronic(Entity):
     def __init__(self, id: uuid4, name: str):

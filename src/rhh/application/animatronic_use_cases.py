@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 import uuid
-from rhh.domain.animatronic_model import Animatronic
+from rhh.domain.models import Animatronic
 
 class AnimatronicQueryUseCase(ABC):
     
