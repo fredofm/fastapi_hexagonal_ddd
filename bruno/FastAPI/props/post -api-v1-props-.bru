@@ -1,0 +1,18 @@
+meta {
+  name: post -api-v1-props-
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{server}}/api/v1/props/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "my_name",
+    "description": "description"
+  }
+}
