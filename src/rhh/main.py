@@ -2,11 +2,13 @@ from fastapi.exceptions import ResponseValidationError
 import uvicorn
 from fastapi import FastAPI
 
-import logging
+import logging.config
+import yaml
 
 from rhh.infrastructure.api.handlers.exception_handlers import common_exception_handler, response_validation_error
 from rhh.infrastructure.api.main import api_router
 from rhh.shared.exceptions import RavenHillHouseError
+from rhh.shared.logger import RHHLogger
 
 class Main:
 
@@ -30,7 +32,10 @@ class Main:
         self.__app.include_router(api_router, prefix="/api/v1")
 
     def setup_config(self) -> None:
-        logging.basicConfig(level=logging.INFO)
+        with open("./logging.yaml", "r") as file:
+            config = yaml.safe_load(file.read())
+            logging.config.dictConfig(config)
+        RHHLogger().get_logger(__name__).info("Logging is configured.")
 #        CorsConfig.setup(self.__app)
 
     def getApp(self) -> FastAPI:

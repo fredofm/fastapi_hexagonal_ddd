@@ -6,7 +6,7 @@ class Animatronic(Entity):
     def __init__(self, id: uuid4, name: str, description: str):
         self.__id = id
         self.__name = name
-        self.__description = "No description added"
+        self.__description = description
         
         super().__init__()
 

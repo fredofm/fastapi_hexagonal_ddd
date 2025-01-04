@@ -8,7 +8,6 @@ class AnimatronicOut(BaseModel):
     id: UUID4
     name: str
     description: str
-    
 
 class AnimatronicMapper():
     @staticmethod

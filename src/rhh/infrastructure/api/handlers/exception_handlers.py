@@ -10,7 +10,6 @@ def common_exception_handler(request: Request, exc: RavenHillHouseError):
         content={"message": f"Oops! Something was wrong: {exc}..."},
     )
     
-    
 def response_validation_error(request: Request, exc: ResponseValidationError):
     return JSONResponse(
         status_code=418,
