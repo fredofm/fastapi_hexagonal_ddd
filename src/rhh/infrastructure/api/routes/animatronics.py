@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import APIRouter, Depends
+from fastapi.security import HTTPBearer
 from rhh.application.animatronic_command_use_cases import (
     AnimatronicCommandUseCase,
     AnimatronicCommandUseCaseImpl,
@@ -13,9 +14,13 @@ from rhh.infrastructure.api.dtos.animatronics import (
     AnimatronicOut,
     AnimatronicIn,
 )
+from rhh.infrastructure.api.security.oauth2 import has_role
 from rhh.shared.common import Transaction
+from rhh.shared.logger import RHHLogger
 
 router = APIRouter()
+token_auth_scheme = HTTPBearer()
+logger = RHHLogger().get_logger(__name__)
 
 @router.get("/", response_model=List[AnimatronicOut])
 async def read_items(
@@ -32,6 +37,7 @@ async def create_item(
     item: AnimatronicIn,
     use_case: AnimatronicCommandUseCase = Depends(AnimatronicCommandUseCaseImpl),
     tx: Transaction = Depends(Transaction),
+    token: str = Depends(has_role("user")),
 ) -> List[AnimatronicOut]:
     """
     Create props.

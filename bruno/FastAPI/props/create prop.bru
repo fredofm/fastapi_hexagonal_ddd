@@ -1,0 +1,33 @@
+meta {
+  name: create prop
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{server}}/api/v1/props/
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{oauth2_token}}
+}
+
+body:json {
+  {
+    "name": "my_name11",
+    "description": "description"
+  }
+}
+
+script:pre-request {
+   
+  
+}
+
+script:post-response {
+  if(req.getAuthMode() == 'oauth2' && res.body.access_token) { 
+    bru.setVar('oauth2_token', res.body.access_token); 
+  }
+}

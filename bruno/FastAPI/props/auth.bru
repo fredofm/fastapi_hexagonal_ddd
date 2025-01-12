@@ -1,0 +1,39 @@
+meta {
+  name: auth
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://{{server}}/api/v1/props/
+  body: json
+  auth: oauth2
+}
+
+auth:oauth2 {
+  grant_type: password
+  access_token_url: http://localhost:8080/realms/rhh/protocol/openid-connect/token
+  username: test
+  password: test
+  client_id: rhh-app
+  client_secret: 
+  scope: 
+}
+
+body:json {
+  {
+    "name": "my_name10",
+    "description": "description"
+  }
+}
+
+script:pre-request {
+   
+  
+}
+
+script:post-response {
+  if(req.getAuthMode() == 'oauth2' && res.body.access_token) { 
+    bru.setVar('oauth2_token', res.body.access_token); 
+  }
+}
